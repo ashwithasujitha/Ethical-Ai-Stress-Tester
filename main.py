@@ -5,6 +5,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score
 from sklearn.preprocessing import StandardScaler
 from fairlearn.metrics import MetricFrame
+from model_loader import load_model
 import warnings
 warnings.filterwarnings('ignore')
 
@@ -192,6 +193,21 @@ if len(accuracy_values) > 1:
         print(f"  {group}: {selection_rates[group]:.3f}")
 else:
     print("Not enough race groups to analyze disparity.")
+
+print("\n" + "="*50)
+print("STEP 12: Model Loader Test")
+print("="*50)
+
+try:
+    model_path = input("Enter model path: ").strip()
+    if model_path:
+        model = load_model(model_path)
+        print("Model loaded successfully!")
+        print(f"Model type: {type(model).__name__}")
+    else:
+        print("No model path provided. Skipping model loader test.")
+except Exception as exc:
+    print(f"Model loader error: {exc}")
 
 print("\n" + "="*50)
 print("PROJECT COMPLETE!")
